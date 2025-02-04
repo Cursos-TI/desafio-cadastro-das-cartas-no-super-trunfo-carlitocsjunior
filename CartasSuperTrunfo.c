@@ -1,4 +1,3 @@
-#include <stdio.h>
 
 // Desafio Super Trunfo - Países
 // Tema 1 - Cadastro das Cartas
@@ -6,31 +5,8 @@
 // Siga os comentários para implementar cada parte do desafio.
 //Teste larissa
 
-#include <stdio.h>
 
-int main() {
-
-    int populacao;
-    float area;
-    float pib;
-    int pontos_turisticos;
-           
-
-           printf("populacao: \n");
-           scanf("%f", &populacao);
-
-
-           printf("area: \n");
-           scanf("%f", &area);
-
-           printf("pib: \n");
-           scanf("%f", &pib);
-
-           printf("pontos_turisticos: \n");
-           scanf("%s", &pontos_turisticos);
-
-    
-    // Sugestão: Defina variáveis separadas para cada atributo da cidade.
+// Sugestão: Defina variáveis separadas para cada atributo da cidade.
     // Exemplos de atributos: código da cidade, nome, população, área, PIB, número de pontos turísticos.
     
     // Cadastro das Cartas:
@@ -41,5 +17,57 @@ int main() {
     // Sugestão: Utilize a função printf para exibir as informações das cartas cadastradas de forma clara e organizada.
     // Exiba os valores inseridos para cada atributo da cidade, um por linha.
 
+typedef struct {
+    char codigo[4];
+    int populacao;
+    float area;
+    float pib;
+    int pontos_turisticos;
+} Cidade;
+
+
+Cidade criarCidade(char estado, int num) {
+    Cidade cidade;
+    sprintf(cidade.codigo, "%c%02d", estado, num);
+    printf("Digite os dados para a cidade %s:\n", cidade.codigo);
+    printf("Populacao: ");
+    scanf("%d", &cidade.populacao);
+    printf("Area (km2): ");
+    scanf("%f", &cidade.area);
+    printf("PIB (bilhoes): ");
+    scanf("%f", &cidade.pib);
+    printf("Numero de pontos turisticos: ");
+    scanf("%d", &cidade.pontos_turisticos);
+    return cidade;
+}
+
+
+void imprimirCidade(Cidade cidade) {
+    printf("Cidade: %s\n", cidade.codigo);
+    printf("  Populacao: %d\n", cidade.populacao);
+    printf("  Area: %.2f km2\n", cidade.area);
+    printf("  PIB: %.2f bilhoes\n", cidade.pib);
+    printf("  Pontos Turisticos: %d\n", cidade.pontos_turisticos);
+    printf("-----------------------------\n");
+}
+
+int main() {
+    Cidade pais[NUM_ESTADOS][NUM_CIDADES];
+    char estados[NUM_ESTADOS] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'};
+    
+    for (int i = 0; i < NUM_ESTADOS; i++) {
+        for (int j = 0; j < NUM_CIDADES; j++) {
+            pais[i][j] = criarCidade(estados[i], j + 1);
+        }
+    }
+    
+    // Imprimindo as cidades
+    for (int i = 0; i < NUM_ESTADOS; i++) {
+        for (int j = 0; j < NUM_CIDADES; j++) {
+            imprimirCidade(pais[i][j]);
+        }
+    }
+    
     return 0;
 }
+
