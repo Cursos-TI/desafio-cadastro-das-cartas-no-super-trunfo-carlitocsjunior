@@ -20,6 +20,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define NUM_ESTADOS 8
+#define NUM_CIDADES 4
+
 typedef struct {
     char codigo[4];
     int populacao;
