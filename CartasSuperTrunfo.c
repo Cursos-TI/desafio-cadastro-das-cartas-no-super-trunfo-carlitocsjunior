@@ -20,34 +20,23 @@
     #include <stdlib.h>
     #include <string.h>
     
-    #define NUM_ESTADOS 2
-    #define NUM_CIDADES 2
+    #define NUM_ESTADOS 8
+    #define NUM_CIDADES 4
     
+    // Estrutura para representar uma cidade
     typedef struct {
-        char estado;
         char codigo[4];
-        char nome_cidade[50]; //Ajustar tamanho adequado ao nome da cidade
         int populacao;
         float area;
         float pib;
         int pontos_turisticos;
-        float densidade_populacional;
-        float PIB_per_capita;
     } Cidade;
     
+    // Função para criar uma cidade
     Cidade criarCidade(char estado, int num) {
         Cidade cidade;
         sprintf(cidade.codigo, "%c%02d", estado, num);
         printf("Digite os dados para a cidade %s:\n", cidade.codigo);
-    
-        printf("Nome da cidade: ");
-        fgets(cidade.nome_cidade, 50, stdin); // Leitura do nome da cidade
-        cidade.nome_cidade[strcspn(cidade.nome_cidade, "\n")] = '\0';
-    
-         // Limpar buffer de entrada após leitura de números
-         int c;
-         while ((c = getchar()) != '\n' && c != EOF);
-    
         printf("Populacao: ");
         scanf("%d", &cidade.populacao);
         printf("Area (km2): ");
@@ -56,43 +45,26 @@
         scanf("%f", &cidade.pib);
         printf("Numero de pontos turisticos: ");
         scanf("%d", &cidade.pontos_turisticos);
-        
-        // Cálculos de Densidade Populacional e PIB per Capita
-        if (cidade.area > 0) {
-            cidade.densidade_populacional = cidade.populacao / cidade.area;
-        } else {
-            cidade.densidade_populacional = 0;
-        }
-    
-        if (cidade.populacao > 0) {
-            cidade.PIB_per_capita = cidade.pib / cidade.populacao;
-        } else {
-            cidade.PIB_per_capita = 0;
-        }
-    
         return cidade;
     }
     
+    // Função para imprimir os detalhes de uma cidade
     void imprimirCidade(Cidade cidade) {
         printf("Cidade: %s\n", cidade.codigo);
         printf("  Populacao: %d\n", cidade.populacao);
         printf("  Area: %.2f km2\n", cidade.area);
         printf("  PIB: %.2f bilhoes\n", cidade.pib);
         printf("  Pontos Turisticos: %d\n", cidade.pontos_turisticos);
-        printf("  Densidade Populacional: %.2f pessoas/km2\n", cidade.densidade_populacional);
-        printf("  PIB per capita: %.2f milhoes\n", cidade.PIB_per_capita * 1000);
         printf("-----------------------------\n");
     }
     
     int main() {
         Cidade pais[NUM_ESTADOS][NUM_CIDADES];
-        char estados[NUM_ESTADOS] = {'A', 'B'};
+        char estados[NUM_ESTADOS] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'};
         
+        // Inicializando as cidades com entrada do usuário
         for (int i = 0; i < NUM_ESTADOS; i++) {
             for (int j = 0; j < NUM_CIDADES; j++) {
-                // Limpar buffer antes de ler strings
-                int c;
-                while ((c = getchar()) != '\n' && c != EOF);
                 pais[i][j] = criarCidade(estados[i], j + 1);
             }
         }
@@ -103,7 +75,6 @@
                 imprimirCidade(pais[i][j]);
             }
         }
-    
+        
         return 0;
     }
-    
