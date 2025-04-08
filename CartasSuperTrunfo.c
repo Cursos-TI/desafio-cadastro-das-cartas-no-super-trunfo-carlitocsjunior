@@ -1,4 +1,6 @@
 
+//Desafio Novato, Aventureiro e Mestre -Tema 2 (Atualizado)
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
